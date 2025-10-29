@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: fitness-app-backend
+    env: node
+    plan: free
+    buildCommand: cd server && npm install
+    startCommand: cd server && npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        value: mongodb+srv://fitnessuser:fitnesspass123@cluster0.mongodb.net/fitnessdb?retryWrites=true&w=majority
+      - key: PORT
+        value: 5000
+      - key: CLIENT_URL
+        value: https://fitness-app-client.onrender.com
+    routes:
+      - path: /api
+        destination: http://localhost:5000/api
+
+  - type: static
+    name: fitness-app-client
+    buildCommand: cd client && npm install && npm run build
+    staticPublishPath: client/dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://fitness-app-backend.onrender.com

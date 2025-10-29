@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import axios from 'axios'
 import '../styles/AuthPage.css'
+import { API_BASE_URL } from '../config/api'
 
 function RegistrationPage() {
   const navigate = useNavigate()
@@ -115,8 +116,7 @@ function RegistrationPage() {
     setLoading(true)
 
     try {
-      const API_URL = 'http://localhost:5000'
-      const response = await axios.post(`${API_URL}/api/auth/register`, {
+      const response = await axios.post(`${API_BASE_URL}/api/auth/register`, {
         fullName: formData.fullName,
         email: formData.email,
         username: formData.username,
