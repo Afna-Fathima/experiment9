@@ -16,8 +16,15 @@ connectDB()
 // Middleware
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || 'http://localhost:3000',
+    origin: [
+      'http://localhost:3000',
+      'https://fitness-app-client-iv5b.onrender.com',
+      'https://fitness-app-client-lv5b.onrender.com',
+      process.env.CLIENT_URL,
+    ].filter(Boolean),
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
   })
 )
 app.use(express.json())
